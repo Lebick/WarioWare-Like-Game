@@ -1,11 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
-using System.Globalization;
 using System.Linq;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
-using UnityEngine.LightTransport;
 using UnityEngine.UI;
 
 public class GameTitle : MonoBehaviour
@@ -37,7 +35,7 @@ public class GameTitle : MonoBehaviour
         Pixelate.instance.SetPixelate(2048);
     }
 
-    #region Å¸ÀÌÆ² ÅØ½ºÆ® ¾Ö´Ï¸ÞÀÌ¼Ç
+    #region Å¸ï¿½ï¿½Æ² ï¿½Ø½ï¿½Æ® ï¿½Ö´Ï¸ï¿½ï¿½Ì¼ï¿½
 
     private IEnumerator TextAnimation()
     {
@@ -47,7 +45,7 @@ public class GameTitle : MonoBehaviour
 
         if (textInfo.characterCount == 0)
         {
-            Debug.LogError("ÅØ½ºÆ® ³Ö¾î¶ó");
+            Debug.LogError("ï¿½Ø½ï¿½Æ® ï¿½Ö¾ï¿½ï¿½");
             yield break;
         }
 
