@@ -1,28 +1,32 @@
 using UnityEngine;
 using System.Collections.Generic;
+using Unity.Netcode;
 
-[ExecuteInEditMode]
-public class SplitTest : MonoBehaviour
+public class ScreenSplit : MonoBehaviour
 {
-    public bool isLerp;
-
     private float maxDistance;
 
     public int splitValue;
 
     public List<float> angles = new();
-    public List<float> currentAngles = new();
 
     public GameObject maskPrefab;
     public List<QuadGraphic> masks = new();
 
-    void Update()
+    private void Update()
     {
         float h = Screen.width / 2;
         float v = Screen.height / 2f;
+        
+        //왜 됨?
+        //maxDistance = Mathf.Sqrt(Mathf.Pow(h, 2) + Mathf.Pow(v, 2));
+        maxDistance = Screen.width > Screen.height ? Screen.width : Screen.height;
 
-        maxDistance = Mathf.Sqrt(Mathf.Pow(h, 2) + Mathf.Pow(v, 2));
+        CheckSplit();
+    }
 
+    private void CheckSplit()
+    {
         if (angles.Count != splitValue)
         {
             if (angles.Count > splitValue) //플레이어가 줄어든 상태
@@ -36,12 +40,16 @@ public class SplitTest : MonoBehaviour
         UpdateCurrentAngle();
     }
 
+    public void ClientAmountSynchronization()
+    {
+        splitValue = NetworkManager.Singleton.ConnectedClientsList.Count;
+        CheckSplit();
+    }
+
     private void DecreaseSplit()
     {
         for (int i = 0; i < angles.Count - splitValue; i++)
         {
-            currentAngles.RemoveAt(currentAngles.Count - 1);
-
             GameObject temp = masks[^1].gameObject;
             masks.RemoveAt(masks.Count - 1);
 
@@ -53,11 +61,6 @@ public class SplitTest : MonoBehaviour
     {
         for (int i = 0; i < splitValue - angles.Count; i++)
         {
-            if (currentAngles.Count < 1)
-                currentAngles.Add(90);
-            else
-                currentAngles.Insert(1, 90);
-
             QuadGraphic mask = Instantiate(maskPrefab, transform).GetComponent<QuadGraphic>();
             mask.quadColor = new Color(Random.value, Random.value, Random.value);
             masks.Add(mask);
@@ -73,19 +76,18 @@ public class SplitTest : MonoBehaviour
 
         if (splitValue > 2)
         {
-            for (int i = 0; i < currentAngles.Count; i++)
+            for (int i = 0; i < angles.Count; i++)
             {
-                if (isLerp)
-                    currentAngles[i] = Mathf.Lerp(currentAngles[i], angles[i], Time.deltaTime * 5f);
-                else
-                    currentAngles[i] = angles[i];
+                angles[i] = angles[i];
 
                 a = transform.position;
-                b = GetEndPos(currentAngles[i]);
-                d = GetEndPos(currentAngles[i == currentAngles.Count - 1 ? 0 : i + 1]);
+                b = GetEndPos(angles[i]);
+                d = GetEndPos(angles[i == angles.Count - 1 ? 0 : i + 1]);
                 c = new Vector2(Mathf.Abs(b.x - a.x) > Mathf.Abs(d.x - a.x) ? b.x : d.x, Mathf.Abs(b.y - a.y) > Mathf.Abs(d.y - a.y) ? b.y : d.y);
 
                 DrawQuad(i, a, b, c, d);
+
+                //print($"{i}는 {a} , {b} , {c} , {d}");
             }
         }
         else
@@ -111,9 +113,6 @@ public class SplitTest : MonoBehaviour
 
                 DrawQuad(1, a + padding, b + padding, c + padding, d + padding);
             }
-
-            for (int i = 0; i < currentAngles.Count; i++)
-                currentAngles[i] = angles[i];
         }
     }
 
@@ -157,15 +156,5 @@ public class SplitTest : MonoBehaviour
         Vector3 end = transform.position + dir * maxDistance;
 
         return end;
-    }
-
-    private void OnDrawGizmos()
-    {
-        Gizmos.color = Color.yellow;
-
-        for (int i = 0; i < splitValue; i++)
-        {
-            Gizmos.DrawLine(transform.position, GetEndPos(currentAngles[i]));
-        }
     }
 }
