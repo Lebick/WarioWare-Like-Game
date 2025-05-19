@@ -19,15 +19,20 @@ public class SplitMask : MonoBehaviour
 
     private void SetCenter()
     {
-        Vector2 center;
+        List<Vector2> poses = new List<Vector2>()
+        {
+            parentGraphic.a,
+            parentGraphic.b,
+            parentGraphic.c,
+            parentGraphic.d
+        };
 
-        if (parentGraphic.c == parentGraphic.d)
-            center = (parentGraphic.a + parentGraphic.b + parentGraphic.c) / 3f;
-        else if (parentGraphic.b == parentGraphic.c)
-            center = (parentGraphic.a + parentGraphic.b + parentGraphic.d) / 3f;
-        else
-            center = (parentGraphic.a + parentGraphic.b + parentGraphic.c + parentGraphic.d) / 4f;
+        float xMin = poses.Min(p => p.x);
+        float xMax = poses.Max(p => p.x);
+        float yMin = poses.Min(p => p.y);
+        float yMax = poses.Max(p => p.y);
 
+        Vector2 center = new Vector2((xMin + xMax) / 2f, (yMin + yMax) / 2f);
         GetComponent<RectTransform>().position = center;
     }
 

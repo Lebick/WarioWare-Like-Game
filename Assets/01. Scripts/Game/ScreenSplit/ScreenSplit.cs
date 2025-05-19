@@ -15,10 +15,10 @@ public class ScreenSplit : MonoBehaviour
 
     private void Update()
     {
-        float h = Screen.width / 2;
-        float v = Screen.height / 2f;
-        
-        //¿Ö µÊ?
+        //float h = Screen.width / 2f;
+        //float v = Screen.height / 2f;
+
+        //¿Ö ¾ÈµÊ?
         //maxDistance = Mathf.Sqrt(Mathf.Pow(h, 2) + Mathf.Pow(v, 2));
         maxDistance = Screen.width > Screen.height ? Screen.width : Screen.height;
 

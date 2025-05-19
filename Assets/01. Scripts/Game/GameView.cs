@@ -15,6 +15,8 @@ public class GameView : MonoBehaviour
         GamePlayManager.instance.screenSplit.ClientAmountSynchronization();
         ulong myId = GetComponent<NetworkObject>().OwnerClientId;
 
+        transform.position = new Vector2(myId * 50, 0);
+
         renderTexture = new RenderTexture(Screen.width, Screen.height, 16);
         renderTexture.Create();
 
