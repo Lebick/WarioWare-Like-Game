@@ -2,7 +2,7 @@ using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class GameView : MonoBehaviour
+public class GameView : NetworkBehaviour
 {
     public Camera myCamera;
 

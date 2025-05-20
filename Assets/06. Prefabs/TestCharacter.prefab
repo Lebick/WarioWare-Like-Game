@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 9165492416281846135}
   - component: {fileID: 1820585763241771933}
   - component: {fileID: -7446099515724083810}
-  - component: {fileID: 6573607070163725570}
+  - component: {fileID: -2306464684999191353}
   m_Layer: 0
   m_Name: TestCharacter
   m_TagString: Untagged
@@ -72,7 +72,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 37fd84982207e8443b93b94625eb7992, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &6573607070163725570
+  Test: 0
+--- !u!114 &-2306464684999191353
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -81,11 +82,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 1731920741917978988}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e96cb6065543e43c4a752faaa1468eb1, type: 3}
+  m_Script: {fileID: 11500000, guid: da52bf8bbc1de48cfb221a6ff30f7972, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   ShowTopMostFoldoutHeaderGroup: 1
-  NetworkTransformExpanded: 0
+  NetworkTransformExpanded: 1
   AutoOwnerAuthorityTickOffset: 1
   PositionInterpolationType: 0
   RotationInterpolationType: 0

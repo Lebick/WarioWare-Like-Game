@@ -5,6 +5,8 @@ public class TestCharacter : MonoBehaviour
 {
     private NetworkObject networkObject;
 
+    public bool Test;
+
     private void Start()
     {
         networkObject = GetComponent<NetworkObject>();
@@ -12,6 +14,7 @@ public class TestCharacter : MonoBehaviour
 
     private void Update()
     {
+        Test = networkObject.IsOwner;
         if (networkObject.IsOwner)
         {
             UpdateMove();

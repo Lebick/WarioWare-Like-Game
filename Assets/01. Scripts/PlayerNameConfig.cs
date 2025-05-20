@@ -21,7 +21,6 @@ public class PlayerNameConfig : MonoBehaviour
         //await WaitInitilization();
 
         await UnityServices.InitializeAsync();
-        await AuthenticationService.Instance.SignInAnonymouslyAsync();
 
         try
         {

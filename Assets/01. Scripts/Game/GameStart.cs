@@ -4,7 +4,21 @@ using UnityEngine.SceneManagement;
 
 public class GameStart : NetworkBehaviour
 {
-    public GameObject playerPrefab;
+    public GameObject gameView;
+
+    private void Start()
+    {
+        NetworkManager.Singleton.OnClientConnectedCallback += OnClientConnected;
+    }
+
+    private void OnClientConnected(ulong clientId)
+    {
+        if (!IsServer) return;
+
+        var instance = Instantiate(gameView, Vector3.zero, Quaternion.identity);
+        var netObj = instance.GetComponent<NetworkObject>();
+        netObj.Spawn();
+    }
 
     void Update()
     {
