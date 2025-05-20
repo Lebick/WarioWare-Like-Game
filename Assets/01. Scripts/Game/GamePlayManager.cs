@@ -5,6 +5,7 @@ public class GamePlayManager : Singleton<GamePlayManager>
     public ScreenSplit screenSplit;
 
     public GameObject splitCamera;
+    public RectTransform splitCanvas;
 
     public GameObject lobbyCanvas;
 

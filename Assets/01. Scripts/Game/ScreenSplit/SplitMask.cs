@@ -6,15 +6,19 @@ public class SplitMask : MonoBehaviour
 {
     private QuadGraphic parentGraphic;
 
+    private RectTransform rect;
+
+
     private void Start()
     {
         parentGraphic = GetComponentInParent<QuadGraphic>();
+        rect = GetComponent<RectTransform>();
     }
 
     private void Update()
     {
-        SetCenter();
         SetSize();
+        SetCenter();
     }
 
     private void SetCenter()
@@ -32,8 +36,10 @@ public class SplitMask : MonoBehaviour
         float yMin = poses.Min(p => p.y);
         float yMax = poses.Max(p => p.y);
 
-        Vector2 center = new Vector2((xMin + xMax) / 2f, (yMin + yMax) / 2f);
-        GetComponent<RectTransform>().position = center;
+        Vector2 center = new Vector2((xMin + xMax) / 2f, (yMin + yMax) / 2f) * GamePlayManager.instance.splitCanvas.localScale;
+        rect.position = center;
+
+        rect.anchoredPosition -= rect.sizeDelta / 2f;
     }
 
     private void SetSize()
@@ -55,6 +61,6 @@ public class SplitMask : MonoBehaviour
         //float height = yMax - yMin;
 
         //GetComponent<RectTransform>().sizeDelta = new Vector2(width, height);
-        GetComponent<RectTransform>().sizeDelta = new Vector2(Screen.width, Screen.height);
+        rect.sizeDelta = new Vector2(Screen.width, Screen.height);
     }
 }

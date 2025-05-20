@@ -4,10 +4,7 @@ using UnityEngine.SceneManagement;
 
 public class GameStart : NetworkBehaviour
 {
-    void Start()
-    {
-
-    }
+    public GameObject playerPrefab;
 
     void Update()
     {
